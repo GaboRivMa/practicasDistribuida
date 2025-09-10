@@ -3,6 +3,7 @@ import time
 from Nodo import *
 from Canales.CanalBroadcast import *
 
+
 # La unidad de tiempo
 TICK = 1
 
@@ -12,10 +13,13 @@ class NodoTopologia(Nodo):
 
     def __init__(self, id_nodo, vecinos, canal_entrada, canal_salida, mensaje=None):
 	    #Aqui va tu codigo
-        super().__init__(id_nodo, vecinos, canal_entrada, canal_salida)
+        self.id_nodo =  id_nodo 
+        self.vecinos =  vecinos  # Vecinos del proceso
+        self.canal_entrada = canal_entrada 
+        self.canal_salida = canal_salida 
         self.mensaje = mensaje
-        self.proc_conocidos= {id_nodo}
-        self.canales_conocidos = {(id_nodo,j) for j in self.vecinos}
+        self.proc_conocidos =  {self.id_nodo}
+        self.canales_conocidos =  {(self.id_nodo,y)  for y in self.vecinos }
 
 
     def topologia(self, env):

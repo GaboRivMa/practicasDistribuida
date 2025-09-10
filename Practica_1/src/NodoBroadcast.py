@@ -12,34 +12,39 @@ class NodoBroadcast(Nodo):
 
     def __init__(self, id_nodo, vecinos, canal_entrada, canal_salida, mensaje=None):
 	    #Aqui va tu codigo
-        super().__init__(id_nodo, vecinos, canal_entrada, canal_salida)
+        self.id_nodo = id_nodo
+        self.vecinos = vecinos
+        self.canal_entrada = canal_entrada
+        self.canal_salida = canal_salida
         self.mensaje = mensaje
         self.seen_message =  False 
 
     def broadcast(self, env):
         ''' Algoritmo de Broadcast. Desde el nodo distinguido (0)
             vamos a enviar un mensaje a todos los demás nodos.'''
-        #Aqui va tu codigo
+        #3
+        if self.id_nodo == 0:
+            #4
+            self.seen_message = True
+            self.mensaje = "MENSAJE"
+            #5
+            if self.vecinos:
+                self.canal_salida.envia(("BROADCAST", self.mensaje), self.vecinos)
+                yield env.timeout(TICK)
+        #7
         while True:
-            #3
-            if self.id_nodo == 0:
-                #4
-                self.seen_message = True
-                #5
-                self.canal_salida.envia(("MESSAGE", self.mensaje), self.vecinos)
-
-            #7
-            message = yield self.canal_entrada.get()
-            tipo_mensaje, mensaje_recibido = message
+            mensaje = yield self.canal_entrada.get()
+            tipo_mensaje, mensaje_recibido = mensaje 
 
             #8
-            if not self.seen_message:
+            if tipo_mensaje == "BROADCAST" and not self.seen_message:
                 #9
                 self.seen_message = True
                 #10
-                self.canal_salida.envia(message, self.vecinos)
-
-            yield env.timeout(TICK)
+                self.mensaje = mensaje_recibido
+                if self.vecinos:
+                    self.canal_salida.envia(("BROADCAST", self.mensaje), self.vecinos)
+                    yield env.timeout(TICK)
         
 
 
