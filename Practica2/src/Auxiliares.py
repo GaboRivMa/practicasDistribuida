@@ -30,7 +30,7 @@ def k_merge(arreglo):
 
 def cuadricula(arr,cantidad_nodos):
     '''
-    Dado un arreglo, devuelve un arreglo de subarreglos equilibrados.
+    Dado un arreglo, devuelve un arreglo de sus subarreglos equilibrados.
     '''
     #cuadricula = [[]] * cantidad_nodos NO es correcto
     cuadricula =  [[] for _ in range(cantidad_nodos)]
