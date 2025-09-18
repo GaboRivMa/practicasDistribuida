@@ -1,6 +1,8 @@
 def k_merge(arreglo):
-    '''Algoritmo que hace un merge entre K arreglos ordenados
-    Devuelve un arreglo ya ordenado con todos los elementos de los k arreglos'''
+    '''
+    Algoritmo que hace un merge entre K arreglos ordenados
+    Devuelve un arreglo ya ordenado con todos los elementos de los k arreglos
+    '''
 
     arr_merge =[] #arreglo en el que se guardará el resultado
     indices = [0] * len(arreglo)  # posición actual en cada arreglo
@@ -27,9 +29,26 @@ def k_merge(arreglo):
 
 
 def cuadricula(arr,cantidad_nodos):
+    '''
+    Dado un arreglo, devuelve un arreglo de subarreglos equilibrados.
+    '''
     #cuadricula = [[]] * cantidad_nodos NO es correcto
     cuadricula =  [[] for _ in range(cantidad_nodos)]
-    '''Implementar'''
+    
+    if cantidad_nodos == 0: 
+        return cuadricula 
+
+    longitud = len(arr)
+    num_elem = longitud // cantidad_nodos     
+    elem_restantes = longitud % cantidad_nodos
+
+    inicio = 0
+    for i in range(cantidad_nodos):
+        extra = 1 if i < elem_restantes else 0 #Agrega un elemento mas en los primeros i restantes
+        fin = inicio + num_elem + extra 
+        cuadricula[i]=arr[inicio:fin]
+        inicio = fin
+
 
     return cuadricula
 
