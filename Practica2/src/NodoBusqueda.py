@@ -25,8 +25,13 @@ class NodoBusqueda(Nodo):
         if self.id_nodo == 0 :
             self.arr = arr
             #Cuadricula -> 
-            yield env.timeout(TICK)
-            self.canal_salida.envia(("GO",arr,elemento),self.vecinos)
+            partes = cuadricula(arr, len(self.vecinos) + 1)  # +1 para el coordinador
+            self.arr = partes[0]  # el coordinador se queda con la primera parte
+
+            # Enviamos a cada vecino su subarreglo
+            for i, vecino in enumerate(self.vecinos):
+                yield env.timeout(TICK)
+                self.canal_salida.envia(("GO", partes[i+1], elemento), [vecino])
 
         while True :
             orden,arr_,elem = yield self.canal_entrada.get()
