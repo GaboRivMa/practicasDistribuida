@@ -53,6 +53,7 @@ def cuadricula(arr,cantidad_nodos):
     return cuadricula
 
 
+
 '''Pruebas locales 
 ar1 = [1,2,3,4,5] 
 n_c_1 = 5
