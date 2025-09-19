@@ -25,14 +25,14 @@ class NodoSort(Nodo):
         
         #Algorimto para coordinador
         if self.id_nodo == 0: 
-            partes = cuadricula(arr, p)
+            subarreglos = cuadricula(arr, p)
 
             for i in range(1, p):
                 #send(i,Ai)
                 yield env.timeout(TICK)
-                self.canal_salida.envia(("WORK", partes[i]), [i])
+                self.canal_salida.envia(("ORDENAR", subarreglos[i]), [i])
 
-            arr_0 = partes[0]
+            arr_0 = subarreglos[0]
             arr_0.sort()
 
             # Arreglo con arreglos para k-merge
@@ -51,7 +51,7 @@ class NodoSort(Nodo):
         else:
             #recv(0,A)
             orden, arr_trabajo = yield self.canal_entrada.get()
-            if orden == "WORK":
+            if orden == "ORDENAR":
                 #sort(A)
                 arr_trabajo.sort()
                 #send(0,A)
