@@ -16,7 +16,9 @@ class NodoSort(Nodo):
         self.arr = []
 
     def ordernar(self,env,arr):
-        '''Implementar'''
+        '''
+        Algoritmo de ordenamiento distribuido que ordena un arreglo completo utilizando varios nodos.
+        '''
         
         self.arr = arr
         p = self.cantidad_nodos
