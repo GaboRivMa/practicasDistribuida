@@ -28,8 +28,6 @@ class TestPractica1:
         for nodo in grafica:
             env.process(nodo.bfs(env))
             # ...y lo corremos
-        msg = (START_MSG, 0, None, -1)
-        grafica[0].canal_entrada.put(msg)
         env.run(until=TIEMPO_DE_EJECUCION)
 
         # Probamos que efectivamente se hizo un BFS.
@@ -63,8 +61,6 @@ class TestPractica1:
         for nodo in grafica:
             env.process(nodo.dfs(env))
             # ...y lo corremos
-        msg = (START_MSG, 0, None)
-        grafica[0].canal_entrada.put(msg)
         env.run(until=TIEMPO_DE_EJECUCION)
 
         # Probamos que efectivamente se hizo un BFS.
