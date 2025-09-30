@@ -23,6 +23,12 @@ class NodoBFS(Nodo):
 
     def bfs(self, env):
         ''' Algoritmo BFS. '''
+        if self.id_nodo == 0:
+            msg = (GO_MSG, self.id_nodo, None, -1)
+            self.canal_salida.envia(msg, [self.id_nodo])
+            yield env.timeout(TICK)
+
+
         while(True):
             mensaje = yield self.canal_entrada.get()
 
@@ -31,12 +37,7 @@ class NodoBFS(Nodo):
             resp = mensaje[2]
             d = mensaje[3]
 
-            if tipo_msg == START_MSG:
-                msg = (GO_MSG, self.id_nodo, None, -1)
-                self.canal_salida.envia(msg, [self.id_nodo])
-                yield env.timeout(TICK)
-
-            elif tipo_msg == GO_MSG:
+            if tipo_msg == GO_MSG:
                 if self.padre == None:
                     self.padre = j
                     self.hijos = []
