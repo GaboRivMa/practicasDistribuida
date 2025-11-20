@@ -17,7 +17,6 @@ class NodoDFS(Nodo):
         self.reloj = [0] * num_nodos
         self.num_nodos = num_nodos
         self.completed_children = set()
-        self.eventos = []
 
     def aumenta_reloj(self):
         self.reloj[self.id_nodo] += 1
@@ -114,5 +113,3 @@ class NodoDFS(Nodo):
                     self.registra_evento('E', msg, self.id_nodo, k)
                     yield env.timeout(TICK)
                     yield self.canal_salida.envia({"tipo":"GO", "emisor":self.id_nodo, "receptor":k, "reloj":self.reloj.copy()}, [k])
-
-        # Tu implementación va aquí
